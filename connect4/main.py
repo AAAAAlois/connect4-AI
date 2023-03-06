@@ -17,10 +17,10 @@ AI_PIECE = 2
 
 WINDOW_LENGTH = 4
 
-BLUE = (0,0,255)
-BLACK = (0,0,0)
-RED =  (255,0,0)
-YELLOW = (255,255,0)
+BLUE = (55, 226, 213)
+BLACK = (89, 6, 150)
+RED =  (199, 10, 128)
+YELLOW = (251, 203, 10)
 
 def create_board():
     board = np.zeros((ROW_COUNT, COLUMN_COUNT))
