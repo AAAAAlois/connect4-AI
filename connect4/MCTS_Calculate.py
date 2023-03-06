@@ -115,7 +115,7 @@ class Node:
         self.children = {}
         self.outcome = -1
 
-    def add_children(self, children: list) -> None:
+    def add_children(self, children: dict) -> None:
         for child in children:
             self.children[child.move] = child
 
@@ -180,11 +180,9 @@ class MCTS:
             node.Q += reward
             node = node.parent
             if outcome == DRAW:
-                reward = -100
-            if outcome == PLAYER_WIN:
-                reward = -1000
-            if outcome == AI_WIN:
-                reward = 500
+                reward = 0
+            else:
+                reward = 1 - reward
 
     def search(self, time_limit: int):
         start_time = time.process_time()
@@ -294,12 +292,14 @@ def run_game():
                 turn = AI
 
         if turn == AI and not game_over:
-            mcts.search(8)
+            mcts.search(1)
             num_rollouts, run_time = mcts.statistics()
             print("Statistics: ", num_rollouts, "rollouts in", run_time, "seconds")
             col = mcts.best_move()
+            if(col == -1):
+                print("Game over")
+                game_over = True
             if connect_state.is_valid_location(col):
-                pygame.time.wait(500)
                 connect_state.move(col)
                 mcts.move(col)
 
